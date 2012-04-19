@@ -313,7 +313,9 @@ Vows.describe("Scripts").addBatch
   "file:// uri scheme":
     Browser.wants "file://" + __dirname + "/data/file_scheme.html"
       topic: (browser)->
-        browser.wait 100, @callback
+        titleChanged = (window)->
+          window.document.title == "file://"
+        browser.wait titleChanged, @callback
       "should run scripts with file url src": (browser)->
         assert.equal browser.document.title, "file://"
 
